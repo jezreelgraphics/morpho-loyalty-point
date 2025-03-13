@@ -18,7 +18,7 @@
                 return;
             }
 
-            let response = await fetch(`YOUR_DEPLOYMENT_URL?phone=${phone}`);
+            let response = await fetch(`https://script.google.com/macros/s/AKfycby1lOJW3llFnED7nBdVoI2fiRLdcOrNgxem6SdHaWr2FqMOyt5ORT7Gpx96oO1Hn6ep/exec?phone=${phone}`);
             let data = await response.json();
 
             if (data.error) {
