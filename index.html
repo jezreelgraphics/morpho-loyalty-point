@@ -4,27 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Your Loyalty Points</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input { padding: 10px; width: 250px; }
+        button { padding: 10px; margin-top: 10px; cursor: pointer; }
+        #result { margin-top: 20px; font-size: 18px; }
+    </style>
     <script>
         async function checkPoints() {
-            const phone = document.getElementById("phone").value;
+            let phone = document.getElementById("phone").value.trim();
             if (!phone) {
                 alert("Please enter your phone number.");
                 return;
             }
 
-            const url = "YOUR_GOOGLE_APPS_SCRIPT_URL?phone=" + encodeURIComponent(phone);
+            let response = await fetch(`YOUR_DEPLOYMENT_URL?phone=${phone}`);
+            let data = await response.json();
 
-            try {
-                let response = await fetch(url);
-                let result = await response.json();
-
-                if (result.totalPoints !== undefined) {
-                    document.getElementById("result").innerText = `Customer ID: ${result.customerID}\nTotal Points: ${result.totalPoints}`;
-                } else {
-                    document.getElementById("result").innerText = "Phone number not found.";
-                }
-            } catch (error) {
-                document.getElementById("result").innerText = "Error fetching data.";
+            if (data.error) {
+                document.getElementById("result").innerText = data.error;
+            } else {
+                document.getElementById("result").innerText = 
+                    `Customer ID: ${data.customerID}\nTotal Points: ${data.totalPoints}`;
             }
         }
     </script>
@@ -32,7 +33,7 @@
 <body>
     <h2>Check Your Loyalty Points</h2>
     <input type="text" id="phone" placeholder="Enter your phone number">
-    <button onclick="checkPoints()">Check</button>
+    <button onclick="checkPoints()">Check Points</button>
     <p id="result"></p>
 </body>
 </html>
