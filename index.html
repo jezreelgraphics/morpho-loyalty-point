@@ -8,33 +8,35 @@
 <body>
   <h1>Check Your Loyalty Points</h1>
   <form id="pointsForm">
-    <label for="phone number">Enter your Phone Number:</label>
-    <input type="text" id="phonenumber" name="phonenumber" required>
+    <label for="phoneNumber">Enter your Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required>
     <button type="submit">Check Points</button>
   </form>
 
   <h2>Your Details:</h2>
-  <p><strong>Customer ID:</strong> <span id="customerIDDisplay">N/A</span></p>
+  <p><strong>Phone Number:</strong> <span id="phoneDisplay">N/A</span></p>
   <p><strong>Your Total Points:</strong> <span id="pointsDisplay">N/A</span></p>
 
   <script>
     document.getElementById("pointsForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
-      var phonenumber = document.getElementById("phonenumber").value;
-      var url = "https://script.google.com/macros/s/AKfycbyQosFUP1JeyI7nUuZpQ2BeIisTFVbEp9MqCrNL2HySC3RYEXQf1HE8btEEpyOV84j8/exec?phonenumber=" + encodeURIComponent(phonenumber);
+      // Get phone number entered in the form
+      var phoneNumber = document.getElementById("phoneNumber").value;
+
+      // URL with phoneNumber as a query parameter
+      var url = "https://script.google.com/macros/s/AKfycbyQosFUP1JeyI7nUuZpQ2BeIisTFVbEp9MqCrNL2HySC3RYEXQf1HE8btEEpyOV84j8/exec?phoneNumber=" + encodeURIComponent(phoneNumber);
 
       // Fetch data from the Apps Script Web App
       fetch(url)
         .then(response => response.json())
         .then(data => {
-          if (data.totalpoints === "Customer not found") {
+          if (data.totalPoints === "Customer not found") {
             document.getElementById("pointsDisplay").innerText = "Customer not found.";
             document.getElementById("phoneDisplay").innerText = "N/A";
           } else {
-            document.getElementById("phonenumberDDisplay").innerText = data.phonenumber;
-            document.getElementById("pointsDisplay").innerText = data.totalpoints;  // Use 'totalpoints'
-          
+            document.getElementById("phoneDisplay").innerText = phoneNumber;
+            document.getElementById("pointsDisplay").innerText = data.totalPoints;  // Use 'totalPoints'
           }
         })
         .catch(error => {
