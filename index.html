@@ -21,8 +21,8 @@
     document.getElementById("pointsForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
-      var customerID = document.getElementById("phonenumber").value;
-      var url = "https://script.google.com/macros/s/AKfycbyfU-y-uBUDDVJ7tIFaRLw9_9ud-0_t0uELWrJfJYuRbwOIRfgUkrOnrg9HYvEX1pR1/exec?phonenumber=" + encodeURIComponent(phonenumber);
+      var phonenumber = document.getElementById("phonenumber").value;
+      var url = "https://script.google.com/macros/s/AKfycbyQosFUP1JeyI7nUuZpQ2BeIisTFVbEp9MqCrNL2HySC3RYEXQf1HE8btEEpyOV84j8/exec?phonenumber=" + encodeURIComponent(phonenumber);
 
       // Fetch data from the Apps Script Web App
       fetch(url)
@@ -34,7 +34,7 @@
           } else {
             document.getElementById("phonenumberDDisplay").innerText = data.phonenumber;
             document.getElementById("pointsDisplay").innerText = data.totalpoints;  // Use 'totalpoints'
-            document.getElementById("phoneDisplay").innerText = data.phoneNumber;
+          
           }
         })
         .catch(error => {
