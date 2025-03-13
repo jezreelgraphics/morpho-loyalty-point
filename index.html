@@ -11,29 +11,45 @@
             margin: 0;
             padding: 0;
             background-image: url('https://raw.githubusercontent.com/jezreelgraphics/morpho-loyalty-point/refs/heads/main/Copy%20of%20Morpho%20Grand%20Opening%20Coffee%20Shop%20Flyer.png'); /* Set background image */
-            background-size: cover; /* Make it cover the full page */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent repetition */
-            height: 100vh; /* Ensure it takes full height */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
+        #brand-logo {
+            width: 200px; /* Adjust the logo size */
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
         input {
             padding: 10px;
             width: 250px;
+            border: none;
+            border-radius: 5px;
         }
+
         button {
             padding: 10px;
             margin-top: 10px;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
         }
+
         #result {
             margin-top: 20px;
             font-size: 18px;
-            color: white; /* Change text color for visibility */
+            color: white;
         }
     </style>
     <script>
@@ -44,7 +60,7 @@
                 return;
             }
 
-            let response = await fetch(`YOUR_DEPLOYMENT_URL?phone=${phone}`);
+            let response = await fetch(`https://script.google.com/macros/s/AKfycby1lOJW3llFnED7nBdVoI2fiRLdcOrNgxem6SdHaWr2FqMOyt5ORT7Gpx96oO1Hn6ep/exec?phone=${phone}`);
             let data = await response.json();
 
             if (data.error) {
@@ -65,9 +81,17 @@
     </script>
 </head>
 <body>
-    <h2 style="color: white;">Check Your Loyalty Points</h2>
+    <!-- Brand Logo -->
+    <img id="brand-logo" src="https://github.com/jezreelgraphics/morpho-loyalty-point/blob/main/Artboard%201.png?raw=true" alt="Brand Logo">
+
+    <!-- Title -->
+    <h2>Check Your Loyalty Points</h2>
+
+    <!-- Input and Button -->
     <input type="text" id="phone" placeholder="Enter your phone number">
     <button onclick="checkPoints()">Check Points</button>
+
+    <!-- Result Display -->
     <p id="result"></p>
 </body>
 </html>
