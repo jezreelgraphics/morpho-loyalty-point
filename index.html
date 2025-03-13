@@ -8,22 +8,21 @@
 <body>
   <h1>Check Your Loyalty Points</h1>
   <form id="pointsForm">
-    <label for="customerID">Enter your Customer ID:</label>
-    <input type="text" id="customerID" name="customerID" required>
+    <label for="phone number">Enter your Phone Number:</label>
+    <input type="text" id="phonenumber" name="phonenumber" required>
     <button type="submit">Check Points</button>
   </form>
 
   <h2>Your Details:</h2>
   <p><strong>Customer ID:</strong> <span id="customerIDDisplay">N/A</span></p>
   <p><strong>Your Total Points:</strong> <span id="pointsDisplay">N/A</span></p>
-  <p><strong>Your Phone Number:</strong> <span id="phoneDisplay">N/A</span></p>
 
   <script>
     document.getElementById("pointsForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
-      var customerID = document.getElementById("customerID").value;
-      var url = "https://script.google.com/macros/s/AKfycbwOyPJK4vcqNqi0O3x-lRHRQ8Mueipp9gSpwgcayeYm76jxVcqZ3gct-S5LUTnCqqXo/exec?customerID=" + encodeURIComponent(customerID);
+      var customerID = document.getElementById("phonenumber").value;
+      var url = "https://script.google.com/macros/s/AKfycbyfU-y-uBUDDVJ7tIFaRLw9_9ud-0_t0uELWrJfJYuRbwOIRfgUkrOnrg9HYvEX1pR1/exec?phonenumber=" + encodeURIComponent(phonenumber);
 
       // Fetch data from the Apps Script Web App
       fetch(url)
@@ -33,7 +32,7 @@
             document.getElementById("pointsDisplay").innerText = "Customer not found.";
             document.getElementById("phoneDisplay").innerText = "N/A";
           } else {
-            document.getElementById("customerIDDisplay").innerText = data.customerID;
+            document.getElementById("phonenumberDDisplay").innerText = data.phonenumber;
             document.getElementById("pointsDisplay").innerText = data.totalpoints;  // Use 'totalpoints'
             document.getElementById("phoneDisplay").innerText = data.phoneNumber;
           }
