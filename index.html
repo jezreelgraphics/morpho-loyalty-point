@@ -5,10 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check Your Loyalty Points</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        input { padding: 10px; width: 250px; }
-        button { padding: 10px; margin-top: 10px; cursor: pointer; }
-        #result { margin-top: 20px; font-size: 18px; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://raw.githubusercontent.com/jezreelgraphics/morpho-loyalty-point/refs/heads/main/Copy%20of%20Morpho%20Grand%20Opening%20Coffee%20Shop%20Flyer.png'); /* Set background image */
+            background-size: cover; /* Make it cover the full page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repetition */
+            height: 100vh; /* Ensure it takes full height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: white; /* Change text color for visibility */
+        }
     </style>
     <script>
         async function checkPoints() {
@@ -18,7 +44,7 @@
                 return;
             }
 
-            let response = await fetch(`https://script.google.com/macros/s/AKfycby1lOJW3llFnED7nBdVoI2fiRLdcOrNgxem6SdHaWr2FqMOyt5ORT7Gpx96oO1Hn6ep/exec?phone=${phone}`);
+            let response = await fetch(`YOUR_DEPLOYMENT_URL?phone=${phone}`);
             let data = await response.json();
 
             if (data.error) {
@@ -28,10 +54,18 @@
                     `Customer ID: ${data.customerID}\nTotal Points: ${data.totalPoints}`;
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("phone").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    checkPoints();
+                }
+            });
+        });
     </script>
 </head>
 <body>
-    <h2>Check Your Loyalty Points</h2>
+    <h2 style="color: white;">Check Your Loyalty Points</h2>
     <input type="text" id="phone" placeholder="Enter your phone number">
     <button onclick="checkPoints()">Check Points</button>
     <p id="result"></p>
