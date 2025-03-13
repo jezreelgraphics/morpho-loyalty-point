@@ -1,3 +1,44 @@
-https://script.google.com/macros/s/AKfycbyoz9iUvjeLA4-gR5X2bMHeoaUZSHVlwOjOG7BrWVANanm2mZjL3tVVGreLKxmBJ0Qi/exec?customerID=CUST-001
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Your Loyalty Points</title>
+</head>
+<body>
+  <h1>Check Your Loyalty Points</h1>
+  <form id="pointsForm">
+    <label for="customerID">Enter your Customer ID:</label>
+    <input type="text" id="customerID" name="customerID" required>
+    <button type="submit">Check Points</button>
+  </form>
 
+  <h2>Your Total Points: <span id="pointsDisplay">N/A</span></h2>
 
+  <script>
+    document.getElementById("pointsForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var customerID = document.getElementById("customerID").value;
+      var url = "https://script.google.com/macros/s/AKfycbyoz9iUvjeLA4-gR5X2bMHeoaUZSHVlwOjOG7BrWVANanm2mZjL3tVVGreLKxmBJ0Qi/exec?customerID=CUST-001" + encodeURIComponent(customerID);
+
+      // Fetch data from the Apps Script Web App
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.totalPoints === "Customer not found") {
+            document.getElementById("pointsDisplay").innerText = "Customer not found.";
+          } else if (data.error) {
+            document.getElementById("pointsDisplay").innerText = data.error;
+          } else {
+            document.getElementById("pointsDisplay").innerText = data.totalPoints;
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching points:", error);
+          document.getElementById("pointsDisplay").innerText = "Error fetching points.";
+        });
+    });
+  </script>
+</body>
+</html>
